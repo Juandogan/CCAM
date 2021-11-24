@@ -20,7 +20,7 @@ const { mongoose } = require('./database'); //mongodb
 
 //var body_parser = require('body-parser');
 // CREATE SERVER socket.IO
-const serverSocketIo = express(); 
+//const serverSocketIo = express(); 
 const multiPartMiddleware = multipart({
     uploadDir: './subidas'
 
@@ -28,44 +28,15 @@ const multiPartMiddleware = multipart({
 
 
 
-const serverHttp = require('http').Server(serverSocketIo);
-const io = require('socket.io')(serverHttp);
-serverHttp.listen(  3001, () =>{
-console.log('***** SocketIO port: 3001')
+//const serverHttp = require('http').Server(serverSocketIo);
+//const io = require('socket.io')(serverHttp);
+//serverHttp.listen(  3001, () =>{
+//console.log('***** SocketIO port: 3001')
         
-    })
+  //  })
          
     
 // CONFIG SOCKET.IO     
-const ordenSocketIo=[]; //  recibe data desde comunicacion.serivce.ts (funciones emit(), liten()) son llamadas x productos.component funcion: formEdit()                                                    
-const ordenStateMongo=[];
-       
-io.on('connection', function(socket){    // abre cnx no recibe data
-        socket.on('send-cxn', function(data){  //Llega pedido desde            
-        socket.emit('text-event',ordenSocketIo)     
-        socket.broadcast.emit('text-event',ordenSocketIo)
-   })  
-         
-        socket.on('send-message', function(data){
-        ordenSocketIo.push(data);
-        socket.emit('text-event',ordenSocketIo)
-        socket.broadcast.emit('text-event',ordenSocketIo)
-    })
-     
-    socket.on('send-messageEstado', function(index,estado){
-        ordenSocketIo.reverse()
-            for(var x = 0 ; x < ordenSocketIo.length;  x++ ) {
-              
-            ordenSocketIo[index].estado = estado
-            
-        }
-        ordenSocketIo.reverse()
-        socket.emit('text-event',ordenSocketIo)
-        socket.broadcast.emit('text-event',ordenSocketIo)
-    })
-   
-            
-})      
   
 
     
@@ -77,7 +48,7 @@ app.set('port', process.env.PORT || 3000);  // tomo app e nsu propiedad .set  //
 // Midlewares
 app.use(morgan('dev')); // morgan es una funcion, la pegamos en la propiedad use de app. y pasamos el parametro dev que indica que mostrara el mensaje por consola de desarrollo. 
 app.use(express.json()); // habilita para que el servidor entienda formato json, es una propiedad de la dependencia Express.npom
-app.use(cors('http://157.230.228.106:4200'));
+app.use(cors('http://168.197.48.178:4200'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended : true
@@ -108,7 +79,7 @@ app.get('*', function(req, res, next)
 
 
 
-const PUERTO = 3000 ;
+//const PUERTO = 3000 ;
 
 // Starting server  
 // https.createServer({
